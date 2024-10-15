@@ -138,7 +138,7 @@ def main():
     print("Adding update...", end="    ", flush=True)
 
     driver.execute_script(f"""
-                            fetch("https://gamebanana.com/apiv11/{"Mod" if is_tool else "Tool"}/{os.getenv('GAMEBANANA_MODID')}/Update", {{
+                            fetch("https://gamebanana.com/apiv11/{"Tool" if is_tool else "Mod"}/{os.getenv('GAMEBANANA_MODID')}/Update", {{
                                "credentials": "include",
                                "headers": {{
                                    "Accept": "application/json, text/plain, */*",
