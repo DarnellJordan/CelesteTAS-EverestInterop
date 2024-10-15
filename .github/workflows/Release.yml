@@ -83,7 +83,7 @@ jobs:
           echo "RELEASE_FILE=$RELEASE_FILE" >> $GITHUB_ENV
 
           # Setup GitHub release title
-          RELEASE_TITLE="CelesteTAS $(sed -n "1p" version_info.txt) / Studio $(sed -n "2p" version_info.txt)"
+          RELEASE_TITLE="$(sed -n "1p" version_info.txt) (Studio $(sed -n "2p" version_info.txt))"
           echo "RELEASE_TITLE=$RELEASE_TITLE" >> $GITHUB_ENV  
 
       - name: Upload GameBanana release
