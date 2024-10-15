@@ -40,8 +40,8 @@ def main():
     celestetas_version = re.search(r"CelesteTAS\s+(v[\d.]+)", commit_message).group(1)
     studio_version = re.search(r"Studio\s+(v[\d.]+)", commit_message).group(1)
     with open(version_info_file, "w") as f:
-        f.write(f"{celestetas_version}\n")
-        f.write(f"{studio_version}\n")
+        f.write(f"{celestetas_version.strip()}\n")
+        f.write(f"{studio_version.strip()}\n")
 
     # Find changelog entries
     changes = []
@@ -58,7 +58,7 @@ def main():
         if len(change_message) < 10:
             change_message = change_message.ljust(9) + "\ufeff"
         
-        gb_changelog.append({ "cat": categories[change_type][0], "text": change_message })
+        gb_changelog.append({ "cat": categories[change_type][0], "text": change_message.strip() })
     with open(gb_changelog_file, "w") as f:
         f.write(json.dumps(gb_changelog))
 

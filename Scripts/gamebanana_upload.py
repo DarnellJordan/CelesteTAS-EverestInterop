@@ -160,31 +160,6 @@ def main():
                                "mode": "cors"
                            }});
                            """)
-    print(f"""
-                            fetch("https://gamebanana.com/apiv11/{"Tool" if is_tool else "Mod"}/{os.getenv('GAMEBANANA_MODID')}/Update", {{
-                               "credentials": "include",
-                               "headers": {{
-                                   "Accept": "application/json, text/plain, */*",
-                                   "Accept-Language": "en,en-US;q=0.5",
-                                   "Content-Type": "application/json",
-                                   "Sec-Fetch-Dest": "empty",
-                                   "Sec-Fetch-Mode": "cors",
-                                   "Sec-Fetch-Site": "same-origin",
-                                   "Sec-GPC": "1",
-                                   "Priority": "u=0"
-                               }},
-                               "referrer": "https://gamebanana.com/{"tools" if is_tool else "mods"}/{os.getenv('GAMEBANANA_MODID')}",
-                               "body": '{json.dumps({                  
-                                   "_aChangeLog": update_json,
-                                   "_aFileRowIds": [file_id],
-                                   "_sName": f"CelesteTAS {celestetas_version} / Studio {studio_version}",
-                                   "_sVersion": celestetas_version,
-                                })}',
-                               "method": "POST",
-                               "mode": "cors"
-                           }});
-                           """)
-
 
     driver.implicitly_wait(5)
     time.sleep(5)
