@@ -70,7 +70,7 @@ jobs:
       - name: Generate release-changelog
         run: |
           source .venv/bin/activate
-          python scripts/generate-release.py "$(git log -1 --pretty=%B)" version_info.txt gamebanana_changelog.json github_changelog.md
+          python Scripts/generate_release.py "$(git log -1 --pretty=%B)" version_info.txt gamebanana_changelog.json github_changelog.md
         env:
           GITHUB_REPO: ${{ github.repository }}
           GITHUB_TOKEN: ${{ github.token }}
@@ -89,7 +89,7 @@ jobs:
       - name: Upload GameBanana release
         run: |
           source .venv/bin/activate
-          python upload_file.py ${{ env.RELEASE_FILE }} gamebanana_changelog.json version_info.txt
+          python Scripts/upload_file.py ${{ env.RELEASE_FILE }} gamebanana_changelog.json version_info.txt
         env:
           GAMEBANANA_USERNAME: AutomaticRelease
           GAMEBANANA_PASSWORD: ${{ secrets.GAMEBANANA_PASSWORD }}
