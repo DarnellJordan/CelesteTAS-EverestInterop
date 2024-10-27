@@ -115,6 +115,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: changelog-*
+      - name: Clean-up changelog artifacts
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: changelog-*
+          failOnError: false
 
       - name: Setup Python environment
         run: |
@@ -125,12 +130,12 @@ jobs:
       - name: Prepare releases
         run: |
           # Version GameBanana .zip without v prefix
-          RELEASE_FILE="CelesteTAS_$(head -n 1 version_info.txt | cut -c 2-).zip"
+          RELEASE_FILE="CelesteTAS_$(head -n 1 changelog-version/version_info.txt | cut -c 2-).zip"
           cp CelesteTAS.zip $RELEASE_FILE
           echo "RELEASE_FILE=$RELEASE_FILE" >> $GITHUB_ENV
 
           # Setup GitHub release title
-          RELEASE_TITLE="$(sed -n "1p" version_info.txt) (Studio $(sed -n "2p" version_info.txt))"
+          RELEASE_TITLE="$(sed -n "1p" changelog-version/version_info.txt) (Studio $(sed -n "2p" changelog-version/version_info.txt))"
           echo "RELEASE_TITLE=$RELEASE_TITLE" >> $GITHUB_ENV  
 
       - name: Upload GameBanana release
