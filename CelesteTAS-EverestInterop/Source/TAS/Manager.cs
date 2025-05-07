@@ -61,6 +61,19 @@ public static class Manager {
 
     private static readonly ConcurrentQueue<Action> mainThreadActions = new();
 
+    [Load]
+        private static void L() {
+            typeof(Player).GetMethodInfo(nameof(Player.Die))!
+                .HookBefore((Player player) => {
+                    $"PLAYER DEATH: {player}".Log(LogLevel.Error);
+                    GameInfo.Update();
+                    $"{GameInfo.ExactStudioInfoAllowCodeExecution}".Log(LogLevel.Error);
+                    $"LVL: {player.level.Session.Level}".Log(LogLevel.Error);
+                    $"TAS: {Controller.CurrentFrameInTas} {Controller.CurrentFrameInInput} {Controller.Previous}/{Controller.Current}/{Controller.Next} | {Controller.Current?.FilePath} {Controller.Current?.FileLine}".Log(LogLevel.Error);
+                    Environment.StackTrace.Log(LogLevel.Error);
+                });
+        }
+
 #if DEBUG
     // Hot-reloading support
     [Load]
