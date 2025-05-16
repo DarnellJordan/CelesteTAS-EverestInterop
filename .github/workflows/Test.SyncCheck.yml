@@ -88,8 +88,6 @@ jobs:
     - name: Move TAS files directory
       run: |
         mv ${{ env.TASFILES_REPO_NAME }} ${{ env.CELESTE_INSTALL }}/${{ env.TASFILES_REPO_NAME }}
-        sed -i '10i ExportGameInfo,${{ env.CELESTE_INSTALL }}/dump.txt' ${{ env.CELESTE_INSTALL }}/${{ env.TASFILES_REPO_NAME }}/2_Intermediate/low-g_botany.tas 2>/dev/null || :
-        sed -i '534i EndExportGameInfo' ${{ env.CELESTE_INSTALL }}/${{ env.TASFILES_REPO_NAME }}/2_Intermediate/low-g_botany.tas 2>/dev/null || :
 
     - name: Download SyncChecker builds
       uses: actions/download-artifact@v4
@@ -115,12 +113,10 @@ jobs:
         echo 'FrostHelper.zip' >> ${{ env.CELESTE_INSTALL }}/Mods/updaterblacklist.txt
         
         dotnet SyncChecker/SyncChecker.dll ${{ env.SYNC_CONFIG_PATH }} ${{ env.SYNC_RESULT_PATH }} || :
-        cat ${{ env.CELESTE_INSTALL }}/dump.txt || :
 
     - name: Prepare cache
       if: always()
       run: |
-        cat ${{ env.CELESTE_INSTALL }}/dump.txt || :
         rm -rf Mods
         mkdir Mods
         # Suppress error since there might be no .zip mods installed
@@ -148,12 +144,3 @@ jobs:
           Mods/**
           ${{ env.CHECKSUM_PATH }}
         key: SyncCheck-${{ inputs.id }}
-
-    - name: Upload GitHub release
-      uses: softprops/action-gh-release@v1
-      with:
-        name: uhh
-        tag_name: testing
-        files: |
-          ${{ env.CELESTE_INSTALL }}/**
-
