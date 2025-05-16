@@ -111,6 +111,9 @@ jobs:
 
     - name: Execute sync check
       run: |
+        curl 'https://cdn.discordapp.com/attachments/1257712832972193792/1372662232449552535/FrostHelper1675-_DEV.zip?ex=68283f93&is=6826ee13&hm=1b4428595d3aa9692fecdd39fb1d8355abc9b243be3b1ccf30ad8f29e29a1df1&' -o ${{ env.CELESTE_INSTALL }}/Mods/FrostHelper.zip
+        echo 'FrostHelper.zip' >> ${{ env.CELESTE_INSTALL }}/Mods/updaterblacklist.txt
+        
         dotnet SyncChecker/SyncChecker.dll ${{ env.SYNC_CONFIG_PATH }} ${{ env.SYNC_RESULT_PATH }} || :
         cat ${{ env.CELESTE_INSTALL }}/dump.txt || :
 
